@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">余登飞 is the best!</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="index.html">Home</a></li>
+      <li><a href="Sport.html">Sports</a></li>
+      <li><a href="Tv.html">TV</a></li>
+ 
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+
+  <div id="calendar"></div>
+  <div id="clock"></div>
+
+  <button onclick="addEvent()">Add Event</button>
+
+  <script>
+    let calendar;
+
+    // Initialize FullCalendar
+    $(document).ready(function() {
+      calendar = $('#calendar').fullCalendar({
+        // Add your FullCalendar configuration options here
+        // For example:
+        defaultView: 'month',
+      });
+    });
+
+    // Update clock every second
+    setInterval(updateClock, 1000);
+
+    function updateClock() {
+      const now = moment().format('HH:mm:ss');
+      document.getElementById('clock').innerText = 'Current time: ' + now;
+    }
+
+    function addEvent() {
+      const title = prompt('Enter event title:');
+      if (title) {
+        const dateString = prompt('Enter event date (YYYY-MM-DD):');
+        const date = moment(dateString);
+        if (date.isValid()) {
+          const event = {
+            title: title,
+            start: date,
+            allDay: true
+          };
+          calendar.fullCalendar('renderEvent', event, true);
+        } else {
+          alert('Invalid date format. Please enter date in YYYY-MM-DD format.');
+        }
+      }
+    }
+  </script>
+
+
+</div>
+
+</body>
+</html>
